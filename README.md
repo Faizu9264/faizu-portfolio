@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# faizu-portfolio
 
-## Getting Started
+Personal portfolio for Faizu Rahman: developer, AI tool builder and creator of CodeCoders. It's built with Next.js 16 and plain CSS, and it exports as a fully static site.
 
-First, run the development server:
+## Edit content
+
+Most content lives in **`src/data/content.ts`**: profile, stats, products, client work, earlier builds, experience, skills, YouTube videos and testimonials. The hero headline and section headings are written directly in `src/app/page.tsx`.
+
+- Add a project: append an object to `products`, `clientWork` or `archive`. Set `featured: true` to promote a product to a large card.
+- Screenshots go in `public/projects/` as WebP (max 1280px wide), referenced as `image: "/projects/<file>"`. Width/height are read automatically. Projects without an image get a generated cover.
+- Client work: never add live/site URLs; use `privateNote` to explain why there's no link.
+- Update the channel stats in `stats` and in the creator section of `page.tsx`.
+- Resume content lives in `src/data/resume.ts` and renders at `/resume`. After editing, run `npm run resume:pdf` (with `npm run dev` running on port 3100) to regenerate `public/Faizu_Rahman_Resume.pdf`.
+
+## Run
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deploy
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Push to GitHub and import the repo on Vercel. Set `NEXT_PUBLIC_SITE_URL` to the final domain (used for canonical URLs, sitemap and social previews).
