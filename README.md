@@ -21,4 +21,8 @@ npm run dev
 
 ## Deploy
 
-Push to GitHub and import the repo on Vercel. Set `NEXT_PUBLIC_SITE_URL` to the final domain (used for canonical URLs, sitemap and social previews).
+Live at **https://faizu-rahman.vercel.app**. The repo is connected to the Vercel project `faizu-rahman`:
+
+- Push to `main` and the site rebuilds and goes live automatically.
+- Pushes to other branches get their own preview URLs.
+- To add a custom domain later, set `NEXT_PUBLIC_SITE_URL` in Vercel (used for canonical URLs, sitemap and social previews).
