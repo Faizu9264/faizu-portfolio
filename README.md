@@ -10,7 +10,7 @@ Most content lives in **`src/data/content.ts`**: profile, stats, products, clien
 - Screenshots go in `public/projects/` as WebP (max 1280px wide), referenced as `image: "/projects/<file>"`. Width/height are read automatically. Projects without an image get a generated cover.
 - Client work: never add live/site URLs; use `privateNote` to explain why there's no link.
 - Update the channel stats in `stats` and in the creator section of `page.tsx`.
-- Resume content lives in `src/data/resume.ts` and renders at `/resume`. After editing, run `npm run resume:pdf` (with `npm run dev` running on port 3100) to regenerate `public/Faizu_Rahman_Resume.pdf`.
+- Resume content lives in `src/data/resume.ts` and renders at `/resume`. After editing, run `npm run resume:pdf` (after `npm run build`, with `npm run start -- -p 3200` running) to regenerate `public/Faizu_Rahman_Resume.pdf`.
 
 ## Run
 

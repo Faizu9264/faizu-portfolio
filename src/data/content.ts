@@ -27,7 +27,7 @@ export const stats = [
   { value: "10K+", label: "Instagram followers" },
   { value: "9.4K+", label: "YouTube subscribers" },
   { value: "10+", label: "Client projects delivered" },
-  { value: "10", label: "Products I\u2019ve built" },
+  { value: "11", label: "Products I\u2019ve built" },
 ];
 
 export type Category = "AI" | "Web" | "Mobile" | "Automation" | "Open Source" | "Client";
@@ -75,6 +75,26 @@ export const products: Project[] = [
     badge: "V2 live on Chrome Web Store",
     featured: true,
     year: "2025–26",
+  },
+  {
+    name: "Reminder Companion",
+    tagline: "Desktop app · Windows & Mac · Selling now",
+    description:
+      "A cute 3D buddy walks onto your desktop, waves and holds up a water bottle, stretches or rubs its eyes, so you actually take that break. It's a paid product I built and shipped end to end, from the app and its 24 animated characters to the installers, one-click updates and the website.",
+    highlights: [
+      "24 built-in companions, each with walking, waving, water, stretch, rest-eyes, happy and crying animations",
+      "Water tracker with daily goals and streaks; stays quiet during full-screen video, presenting and calls",
+      "Companion maker: drop in AI-generated clips and it removes the background and builds a new character",
+      "Apple-notarized Mac builds and automatic in-app updates; no account, no tracking",
+    ],
+    stack: ["Electron", "JavaScript", "Swift", "Python", "electron-updater", "GitHub Actions"],
+    categories: ["AI", "Web"],
+    image: "/projects/reminder-companion.webp",
+    live: "https://remindercompanion.vercel.app/",
+    liveLabel: "Website",
+    badge: "Live product",
+    featured: true,
+    year: "2026",
   },
   {
     name: "Jarvis — AI Command Center",
@@ -447,7 +467,7 @@ export const experience = [
       "Building an IPTV player platform (mobile, web, reseller admin, backend) and shipped Glowell Hub, a student web app, mobile app and LMS/CRM admin tool.",
       "Led integration for the Business Stanely & Legal Stanely task/CRM platforms and co-built a Concept Map MVP.",
       "Built WhatsApp automation and CRM systems on n8n; ran a technical audit for a multi-vertical super-app.",
-      "Launched my own products: the n8n AI Workflow Generator extension, ReelStash, an npm tour library and Jarvis, a voice AI command center for Claude Code and Codex.",
+      "Launched my own products: the n8n AI Workflow Generator extension, ReelStash, an npm tour library, Reminder Companion and Jarvis, a voice AI command center for Claude Code and Codex.",
     ],
   },
   {

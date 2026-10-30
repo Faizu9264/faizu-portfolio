@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "resume:pdf": "\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --no-pdf-header-footer --print-to-pdf=public/Faizu_Rahman_Resume.pdf http://localhost:3100/resume"
+    "resume:pdf": "\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --no-pdf-header-footer --user-data-dir=/tmp/faizu-resume-chrome --virtual-time-budget=8000 --print-to-pdf=public/Faizu_Rahman_Resume.pdf http://localhost:3200/resume"
   },
   "dependencies": {
     "next": "16.3.6",

@@ -6,7 +6,7 @@ export const resume = {
   location: "Palakkad, Kerala, India",
   phone: "+91 6282821603",
   summary:
-    "Full-stack developer with 2.5+ years of professional experience shipping web apps, mobile apps, AI tools and automations with Next.js, React Native, Node.js and Supabase — for clients in India, Qatar, UAE and Ireland. Since 2024 I've delivered 10+ client projects and built 10 products of my own — from a Chrome extension and an npm package to desktop and mobile AI apps. I teach what I build to ~19K followers on YouTube (CodeCoders) and Instagram (@faizu.dev).",
+    "Full-stack developer with 2.5+ years of professional experience shipping web apps, mobile apps, AI tools and automations with Next.js, React Native, Node.js and Supabase — for clients in India, Qatar, UAE and Ireland. Since 2024 I've delivered 10+ client projects and built 11 products of my own — from a Chrome extension and an npm package to desktop and mobile AI apps. I teach what I build to ~19K followers on YouTube (CodeCoders) and Instagram (@faizu.dev).",
   experience: [
     {
       role: "Freelance Full-Stack Developer",
@@ -64,9 +64,9 @@ export const resume = {
       text: "AI app that transcribes, tags and summarizes shared reels, with semantic search and a RAG “ask your library” chat.",
     },
     {
-      name: "onboarding-tour-faizu",
-      meta: "npm package · TypeScript",
-      text: "Lightweight product-tour library with element highlighting, media steps and a confetti finish.",
+      name: "Reminder Companion",
+      meta: "Electron · paid desktop app",
+      text: "24 animated 3D buddies walk on screen with water, stretch and eye-rest reminders. Windows and Mac, with one-click updates.",
     },
   ],
   skills: [
