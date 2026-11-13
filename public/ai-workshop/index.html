@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Automation Workshop Resources</title>
+<meta name="description" content="Tools, prompts and full tutorials from the AI Automation Workshop by Brandversity AI Builders Academy, 14 November 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=DM+Sans:opsz,wght@9..40,400..700&display=swap">
+<style>
+/* One narrow column, phone first. Sections follow the order of the session. */
+:root{
+  --bg:#F3F5FA; --surface:#FFFFFF; --ink:#121A2E; --muted:#56617A; --line:#D9DFEC;
+  --accent:#2F55C8; --accent-soft:#E6ECFB; --pop:#0E8F86; --pop-soft:#DFF4F1; --warn:#B4541C;
+  --display:'Bricolage Grotesque','Arial Narrow',Arial,sans-serif;
+  --body:'DM Sans',Arial,Helvetica,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1222; --surface:#141D33; --ink:#EEF2FC; --muted:#A7B3CC; --line:#2A3A59;
+    --accent:#7C9BFF; --accent-soft:#1E2B4D; --pop:#5CE4D9; --pop-soft:#123737; --warn:#FFA472;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1222; --surface:#141D33; --ink:#EEF2FC; --muted:#A7B3CC; --line:#2A3A59;
+  --accent:#7C9BFF; --accent-soft:#1E2B4D; --pop:#5CE4D9; --pop-soft:#123737; --warn:#FFA472;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--body)}
+.wrap{max-width:680px;margin:0 auto;padding:24px 16px 56px;display:flex;flex-direction:column;gap:20px}
+header{display:flex;flex-direction:column;gap:8px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pop)}
+h1{font-family:var(--display);font-size:clamp(30px,8vw,42px);line-height:1.05;margin:0;letter-spacing:-.02em;text-wrap:balance}
+h2{font-family:var(--display);font-size:22px;line-height:1.15;margin:0;letter-spacing:-.01em;text-wrap:balance}
+h3{font-size:16px;margin:0}
+p{margin:0}
+.lead{color:var(--muted)}
+a{color:var(--accent);font-weight:700;text-decoration:none;overflow-wrap:anywhere}
+a:hover{text-decoration:underline}
+:focus-visible{outline:3px solid var(--pop);outline-offset:2px;border-radius:6px}
+nav{display:flex;flex-wrap:wrap;gap:8px}
+nav a{font-size:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 12px;font-weight:600}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:14px}
+.num{font-family:var(--display);color:var(--accent);font-size:14px;font-weight:800;letter-spacing:.08em}
+.item{display:flex;flex-direction:column;gap:4px;padding-top:12px;border-top:1px solid var(--line)}
+.item p{font-size:14px;color:var(--muted)}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.btn{display:inline-block;font-size:14px;border-radius:10px;padding:9px 13px;background:var(--accent);color:#fff}
+:root[data-theme="dark"] .btn:not(.ghost){color:#0B1222}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn:not(.ghost){color:#0B1222}}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--line)}
+.btn:hover{text-decoration:none;filter:brightness(1.08)}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--pop);background:var(--pop-soft);border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px;background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:3px 8px;color:var(--ink);font-weight:700}
+.prompt{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:15px;color:var(--ink)}
+.prompt mark{background:var(--accent-soft);color:var(--accent);border-radius:4px;padding:0 3px;font-weight:700}
+.copy{align-self:flex-start;font:inherit;font-size:13px;font-weight:700;border:1px solid var(--line);background:var(--surface);color:var(--accent);border-radius:8px;padding:6px 10px;cursor:pointer}
+ul.rules{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+ul.rules li{border-left:3px solid var(--warn);padding-left:10px;font-size:15px}
+ul.rules b{display:block}
+.note{font-size:13px;color:var(--muted)}
+.hero{border:2px solid var(--accent)}
+footer{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted);padding-top:8px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Brandversity AI Builders Academy · 14 Nov 2026</div>
+    <h1>AI Automation Workshop: everything from today</h1>
+    <p class="lead">The tools, prompts and full tutorials from the session with Faizu Rahman. Pick one thing and try it this week.</p>
+  </header>
+
+  <nav aria-label="Sections">
+    <a href="#start">Start here</a>
+    <a href="#posters">Posters and video</a>
+    <a href="#instagram">Instagram</a>
+    <a href="#linkedin">LinkedIn</a>
+    <a href="#workflows">Workflows</a>
+    <a href="#whatsapp">WhatsApp</a>
+    <a href="#youtube">YouTube</a>
+    <a href="#prompts">Prompts</a>
+    <a href="#rules">Rules</a>
+  </nav>
+
+  <section class="card hero" id="start">
+    <span class="num">START HERE</span>
+    <h2>Which task should AI do first in your business?</h2>
+    <p class="lead">A free 2-minute tool. Tap the work you repeat every week, score it, and get your first AI task.</p>
+    <div class="row"><a class="btn" href="/ai-finder">Open the AI Opportunity Finder</a></div>
+    <p class="note"><b>Value</b> is how much you gain if AI does the task. <b>Feasibility</b> is how easy it is to hand over today. Start with the task that is high on both.</p>
+  </section>
+
+  <section class="card" id="posters">
+    <span class="num">01 · POSTERS AND VIDEOS</span>
+    <h2>From a phone photo to a post</h2>
+    <div class="item">
+      <h3>VisualGPT <span class="tag">Partner link</span></h3>
+      <p>Remove a background, text or an object from a product photo, restore old photos, and make images from a typed prompt.</p>
+      <div class="row"><a class="btn" href="https://visualgpt.io?fpr=codecoders" rel="noopener">Open VisualGPT</a><a class="btn ghost" href="https://youtu.be/sKVac0X2yug" rel="noopener">Watch the tutorial</a></div>
+    </div>
+    <div class="item">
+      <h3>Higgsfield Click-To-Ad</h3>
+      <p>Paste a product link and get a short video ad. Video uses paid credits; check the result before you post it.</p>
+      <div class="row"><a class="btn" href="https://higgsfield.ai/app/link-to-video-ad" rel="noopener">Open Click-To-Ad</a><a class="btn ghost" href="https://youtu.be/c_Ey5jtZ3E8" rel="noopener">Watch the tutorial</a></div>
+    </div>
+    <div class="item">
+      <h3>Free tools for each step</h3>
+      <p><b>Script and caption:</b> Claude, ChatGPT or Gemini. <b>Poster:</b> Canva AI or Ideogram. <b>Edit:</b> CapCut. <b>Schedule:</b> Meta Business Suite, free for Instagram and Facebook.</p>
+    </div>
+  </section>
+
+  <section class="card" id="instagram">
+    <span class="num">02 · INSTAGRAM AND FACEBOOK</span>
+    <h2>A comment becomes a DM with your link</h2>
+    <div class="item">
+      <h3>SuperProfile <span class="tag">Partner link</span></h3>
+      <p>Auto-DM on comments, and a simple page to sell or collect orders. It connects through Instagram's own login.</p>
+      <p>Offer code <span class="code">YTCODERS99V1</span>: first month of the Creator plan at a reduced price. Check that the code is still accepted at checkout.</p>
+      <div class="row"><a class="btn" href="https://superprofile.bio?referralCode=AOLEXw&amp;referralType=creatorReferral&amp;source=referralPage" rel="noopener">Open SuperProfile</a><a class="btn ghost" href="https://youtu.be/qdMxl0Q5Lc8" rel="noopener">Full setup tutorial</a><a class="btn ghost" href="https://youtu.be/z9OB2sD1H4o" rel="noopener">Connected Agents video</a></div>
+    </div>
+  </section>
+
+  <section class="card" id="linkedin">
+    <span class="num">03 · LINKEDIN</span>
+    <h2>Automate the writing, not the clicking</h2>
+    <div class="item">
+      <h3>The safe way</h3>
+      <p>Ask an AI app to turn one idea into a LinkedIn post, edit one line yourself, then use the clock icon in LinkedIn's own post box to schedule it.</p>
+      <p>Avoid bots that send connection requests, auto-messages or auto-likes. LinkedIn restricts accounts that use them.</p>
+    </div>
+  </section>
+
+  <section class="card" id="workflows">
+    <span class="num">04 · WORKFLOW AUTOMATIONS</span>
+    <h2>Something happens, steps run, something gets done</h2>
+    <div class="item">
+      <h3>n8n <span class="tag">Open source</span></h3>
+      <p>Connect a form, an AI step, a Google Sheet and an alert. Free to host yourself.</p>
+      <div class="row"><a class="btn" href="https://n8n.io" rel="noopener">Open n8n</a></div>
+    </div>
+    <div class="item">
+      <h3>n8n AI Workflow Generator <span class="tag">Free</span></h3>
+      <p>Faizu's Chrome extension: search 11,000+ ready-made workflows and drop one onto your canvas in a click.</p>
+      <div class="row"><a class="btn" href="https://chromewebstore.google.com/detail/mphnijmmbiocdipbpiinjglkppmgjeac" rel="noopener">Add to Chrome</a><a class="btn ghost" href="https://n8n-extention-website.vercel.app" rel="noopener">Extension website</a><a class="btn ghost" href="https://youtu.be/xnembfc7BZM" rel="noopener">Watch the tutorial</a></div>
+    </div>
+  </section>
+
+  <section class="card" id="whatsapp">
+    <span class="num">05 · WHATSAPP</span>
+    <h2>Answer every enquiry, even at midnight</h2>
+    <div class="item">
+      <h3>Start free: WhatsApp Business app</h3>
+      <p>Set a greeting message, an away message and quick replies today. No extra tool needed.</p>
+    </div>
+    <div class="item">
+      <h3>Open-source WhatsApp CRM <span class="tag">Open source</span></h3>
+      <p>A shared inbox with AI auto-reply on the official Meta API. Setting it up needs some technical help.</p>
+      <div class="row"><a class="btn" href="https://youtu.be/4IJy-Uxpxns" rel="noopener">Full setup tutorial</a><a class="btn ghost" href="https://github.com/ArnasDon/wacrm" rel="noopener">Code on GitHub</a></div>
+    </div>
+  </section>
+
+  <section class="card" id="youtube">
+    <span class="num">06 · YOUTUBE</span>
+    <h2>AI makes the first draft, you make the final call</h2>
+    <div class="item">
+      <h3>Faceless Shorts with Claude</h3>
+      <p>One typed line becomes an animated Short with voice and captions. Treat it as a first draft and add your own voice or examples.</p>
+      <div class="row"><a class="btn" href="https://youtu.be/_RWaeKN5gx0" rel="noopener">Watch the tutorial</a><a class="btn ghost" href="https://www.nafay3d.com" rel="noopener">Free skill by Nafay 3D</a><a class="btn ghost" href="https://claude.com/claude-code" rel="noopener">Claude Code</a></div>
+    </div>
+  </section>
+
+  <section class="card" id="prompts">
+    <span class="num">COPY AND USE</span>
+    <h2>Two prompts from the session</h2>
+    <div class="item">
+      <h3>Poster prompt</h3>
+      <p class="prompt" id="p1"><mark>[Product]</mark> on <mark>[surface or setting]</mark>, soft morning window light, clean product photo for Instagram, brand colours <mark>[x and y]</mark>, empty space at the top for the text '<mark>[offer]</mark>'. Square format.</p>
+      <button class="copy" type="button" data-copy="p1">Copy prompt</button>
+      <p>Replace the words in brackets. Start from your own product photo and check the spelling on the poster.</p>
+    </div>
+    <div class="item">
+      <h3>Lead-sorting prompt</h3>
+      <p class="prompt" id="p2">Label this message HOT, QUESTION or COMPLAINT. Reply with the label only. If unsure, reply QUESTION. Message: <mark>[paste the customer's message]</mark></p>
+      <button class="copy" type="button" data-copy="p2">Copy prompt</button>
+      <p>This one sentence is the whole AI step in the form → sheet → alert workflow.</p>
+    </div>
+  </section>
+
+  <section class="card" id="rules">
+    <span class="num">BEFORE YOU AUTOMATE</span>
+    <h2>The rules that keep your accounts safe</h2>
+    <ul class="rules">
+      <li><b>Check what reaches customers.</b>Prices, dates, promises, payments and refunds get a human check.</li>
+      <li><b>Instagram and Facebook.</b>Automation may only reply to people who commented or messaged first. Use Meta-approved apps that never ask for your password.</li>
+      <li><b>LinkedIn.</b>Let AI write. Do not use bots that connect, message or like for you.</li>
+      <li><b>WhatsApp.</b>The customer writes first. Never use unofficial bulk-sender tools: they get numbers banned.</li>
+      <li><b>YouTube.</b>AI is allowed. Mass-produced, repetitive videos do not earn. Keep yourself in the video.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <span class="num">NEXT STEP</span>
+    <h2>AI for Founders, Batch 1</h2>
+    <p class="lead">A one-month, hands-on offline programme where you apply all of this to your own business. Five sessions, starting Saturday 28 November. 20 seats; admissions close 25 November.</p>
+    <div class="row"><a class="btn" href="https://wa.me/918592956370" rel="noopener">WhatsApp +91 85929 56370</a><a class="btn ghost" href="https://www.instagram.com/3gbrandversity/" rel="noopener">@3gbrandversity</a></div>
+  </section>
+
+  <footer>
+    <span>Links marked “Partner link” are Faizu's partner links. If you sign up through them he may earn a commission, at no extra cost to you.</span>
+    <span>Tools and prices change often. Check the current price on each tool's site before you pay.</span>
+    <span>Faizu Rahman · <a href="https://www.youtube.com/@CodeCodersYT" rel="noopener">CodeCoders on YouTube</a> · <a href="https://www.instagram.com/faizu.dev/" rel="noopener">@faizu.dev</a></span>
+  </footer>
+</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click', async function(){
+    var text = document.getElementById(b.dataset.copy).textContent;
+    try { await navigator.clipboard.writeText(text); b.textContent = 'Copied'; }
+    catch (e) { b.textContent = 'Press and hold the text to copy'; }
+    setTimeout(function(){ b.textContent = 'Copy prompt'; }, 2500);
+  });
+});
+</script>
+</body>
+</html>

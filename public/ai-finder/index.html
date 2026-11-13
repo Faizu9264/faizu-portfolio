@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Opportunity Finder</title>
+<meta name="description" content="Pick the work you repeat every week, score it, and find the first task to give to AI in your business. A free tool by Faizu Rahman.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=DM+Sans:opsz,wght@9..40,400..700&display=swap">
+<style>
+/* Layout: one narrow column, phone first. Pick tasks → score → ranked answer. */
+:root{
+  --bg:#F3F5FA; --surface:#FFFFFF; --ink:#121A2E; --muted:#56617A; --line:#D9DFEC;
+  --accent:#2F55C8; --accent-soft:#E6ECFB; --pop:#0E8F86; --pop-soft:#DFF4F1; --warn:#B4541C;
+  --display:'Bricolage Grotesque', 'Arial Narrow', Arial, sans-serif;
+  --body:'DM Sans', Arial, Helvetica, sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1222; --surface:#141D33; --ink:#EEF2FC; --muted:#A7B3CC; --line:#2A3A59;
+    --accent:#7C9BFF; --accent-soft:#1E2B4D; --pop:#5CE4D9; --pop-soft:#123737; --warn:#FFA472;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1222; --surface:#141D33; --ink:#EEF2FC; --muted:#A7B3CC; --line:#2A3A59;
+  --accent:#7C9BFF; --accent-soft:#1E2B4D; --pop:#5CE4D9; --pop-soft:#123737; --warn:#FFA472;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--body)}
+.wrap{max-width:640px;margin:0 auto;padding:24px 16px 48px;display:flex;flex-direction:column;gap:20px}
+header{display:flex;flex-direction:column;gap:8px;padding-top:4px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pop)}
+h1{font-family:var(--display);font-size:clamp(30px,8vw,42px);line-height:1.05;margin:0;letter-spacing:-.02em;text-wrap:balance}
+h2{font-family:var(--display);font-size:20px;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.lead{margin:0;color:var(--muted);font-size:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.step{display:flex;align-items:baseline;gap:10px}
+.step b{font-family:var(--display);color:var(--accent);font-size:20px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:8px 12px;cursor:pointer;text-align:left}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+:root[data-theme="dark"] .chip[aria-pressed="true"]{color:#0B1222}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .chip[aria-pressed="true"]{color:#0B1222}}
+.addrow{display:flex;gap:8px}
+input[type=text]{flex:1;min-width:0;font:inherit;font-size:15px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+button{font:inherit}
+.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;background:var(--accent);color:#fff}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--line)}
+:focus-visible{outline:3px solid var(--pop);outline-offset:2px}
+.task{border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.task-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.task-name{font-weight:700}
+.x{border:0;background:transparent;color:var(--muted);font-size:20px;line-height:1;cursor:pointer;padding:2px 6px}
+.field{display:grid;grid-template-columns:96px 1fr;align-items:center;gap:8px}
+.field label,.field .lbl{font-size:13px;color:var(--muted)}
+.stepper{display:flex;align-items:center;gap:6px}
+.stepper button{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:18px;cursor:pointer}
+.stepper output{min-width:64px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.seg{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.seg button{height:34px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-weight:700;font-variant-numeric:tabular-nums}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.hint{font-size:12px;color:var(--muted);margin:0}
+.defs{margin:0;display:flex;flex-direction:column;gap:8px;background:var(--accent-soft);border-radius:12px;padding:12px}
+.defs div{display:grid;grid-template-columns:96px 1fr;gap:8px;align-items:baseline}
+.defs dt{font-size:13px;font-weight:700;color:var(--ink)}
+.defs dd{margin:0;font-size:13px;color:var(--muted)}
+.defs dd b{color:var(--ink)}
+.empty{color:var(--muted);font-size:14px;margin:0}
+.result{border:2px solid var(--accent);background:var(--surface)}
+.pill{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:4px 10px;width:max-content}
+.big{font-family:var(--display);font-size:clamp(24px,6.5vw,32px);line-height:1.1;margin:0;text-wrap:balance}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.fact{background:var(--bg);border-radius:10px;padding:10px}
+.fact b{display:block;font-size:20px;font-variant-numeric:tabular-nums}
+.fact span{font-size:12px;color:var(--muted)}
+.how{display:flex;flex-direction:column;gap:8px}
+.how div{border-left:3px solid var(--line);padding:2px 0 2px 10px}
+.how div.ai{border-color:var(--accent)} .how div.person{border-color:var(--warn)} .how div.tools{border-color:var(--pop)}
+.how h3{margin:0;font-size:13px;color:var(--muted);font-weight:700}
+.how p{margin:0}
+ol.rank{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+ol.rank li{display:grid;grid-template-columns:28px 1fr 52px;gap:8px;align-items:center}
+.rk{font-family:var(--display);font-weight:800;color:var(--muted)}
+.rank li:first-child .rk{color:var(--accent)}
+.bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:4px}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.rank li:not(:first-child) .bar i{background:var(--muted);opacity:.55}
+.sc{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.sc small{color:var(--muted);font-weight:400}
+.rname{font-size:15px}
+svg{width:100%;height:auto;display:block}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.toast{font-size:13px;color:var(--pop);min-height:18px}
+details{font-size:14px;color:var(--muted)}
+summary{cursor:pointer;color:var(--ink);font-weight:700}
+footer{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted);text-align:left;padding-top:8px;border-top:1px solid var(--line)}
+footer a{color:var(--accent);font-weight:700;text-decoration:none}
+@media (prefers-reduced-motion:no-preference){.bar i{transition:width .3s ease}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Free tool · Faizu Rahman</div>
+    <h1>Which task should AI do first in your business?</h1>
+    <p class="lead">Pick the work you repeat every week, score it, and get your first AI task in about 2 minutes.</p>
+  </header>
+
+  <section class="card" aria-labelledby="s1">
+    <div class="step"><b>1</b><h2 id="s1">Tap the tasks you do every week</h2></div>
+    <div class="chips" id="chips"></div>
+    <div class="addrow">
+      <input type="text" id="custom" placeholder="Add your own task" maxlength="60" aria-label="Add your own task">
+      <button class="btn ghost" id="addBtn" type="button">Add</button>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="s2">
+    <div class="step"><b>2</b><h2 id="s2">Score each one</h2></div>
+    <dl class="defs">
+      <div><dt>Hours a week</dt><dd>How long you spend on this task now.</dd></div>
+      <div><dt>Value</dt><dd><b>How much you gain if AI does it.</b> More hours saved or more customers won = a higher number. It fills in from your hours; raise it if the task brings in customers.</dd></div>
+      <div><dt>Feasibility</dt><dd><b>How easy it is to hand over today.</b> Is the information already written down (price list, FAQ)? Would you spot a mistake before the customer does? Two yeses = 4 or 5. Two nos = 1 or 2.</dd></div>
+    </dl>
+    <p class="hint">1 is low, 5 is high. The best first task is high on both: a big gain that is easy to start.</p>
+    <div id="tasks" style="display:flex;flex-direction:column;gap:10px"></div>
+  </section>
+
+  <section class="card result" aria-labelledby="s3" id="resultCard">
+    <div class="step"><b>3</b><h2 id="s3">Your answer</h2></div>
+    <div id="result"></div>
+  </section>
+
+  <section class="card" aria-labelledby="s4" id="rankCard">
+    <h2 id="s4">All your tasks, ranked</h2>
+    <ol class="rank" id="rank"></ol>
+    <div id="plot"></div>
+    <p class="hint">Up = more value (bigger gain). Right = more feasible (easier to start). The top right corner is where your first AI task comes from.</p>
+    <div class="actions">
+      <button class="btn" id="copyBtn" type="button">Copy my result</button>
+      <button class="btn ghost" id="resetBtn" type="button">Start over</button>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+    <details>
+      <summary>How the score works</summary>
+      <p>Score = Value × Feasibility, out of 25. Multiplying means a task must be both worth doing and easy to hand over to reach the top. Value comes from hours saved: 5+ hours a week = 5, 3–4 = 4, 2 = 3, 1 = 2, under 1 = 1. On a tie, the task with more hours wins. Keep the next two for later.</p>
+    </details>
+  </section>
+
+  <footer>
+    <span>Made by Faizu Rahman · <a href="https://www.instagram.com/faizu.dev/">@faizu.dev</a> on Instagram</span>
+    <span>Part of Brandversity AI Builders Academy · <a href="https://www.instagram.com/3gbrandversity/">@3gbrandversity</a></span>
+  </footer>
+</div>
+
+<script>
+const LIB = [
+  {id:'enq', name:'Replying to customer enquiries', hours:6, feas:4,
+   ai:'Drafts replies from your price list and FAQ, and answers the common questions in seconds.',
+   person:'Custom prices, special requests, complaints and any promise to a customer.',
+   tools:'An AI assistant (Claude, ChatGPT or Gemini) with your FAQ, then a WhatsApp or Instagram auto-reply.'},
+  {id:'fol', name:'Following up with leads', hours:3, feas:4,
+   ai:'Keeps a list of who to follow up and drafts each message in your tone.',
+   person:'The actual call, discounts, and deciding who is worth chasing.',
+   tools:'A Google Sheet of leads plus reminders from n8n, Make or Zapier.'},
+  {id:'quo', name:'Writing quotations', hours:3, feas:3,
+   ai:'Turns a customer request into a draft quote from your rate card.',
+   person:'Final price, margins and anything outside your rate card.',
+   tools:'An AI assistant with your rate card, and a quote template in Docs or Sheets.'},
+  {id:'soc', name:'Social media posts and captions', hours:4, feas:5,
+   ai:'Plans a week of posts and writes captions in English and Malayalam from one brief.',
+   person:'Brand voice, offers and final approval before posting.',
+   tools:'An AI assistant with a saved brand brief, plus Canva or a scheduler.'},
+  {id:'pos', name:'Posters and product photos', hours:3, feas:4,
+   ai:'Creates product visuals and festive posters from your own photos.',
+   person:'Spelling on the poster, real product details, and rights to use the image.',
+   tools:'An AI image generator or Canva’s AI tools, starting from your phone photos.'},
+  {id:'vid', name:'Short videos and reels', hours:4, feas:3,
+   ai:'Writes the script and storyboard and turns photos into short clips.',
+   person:'What gets said about the product, and the final cut.',
+   tools:'An AI assistant for scripts, an image-to-video tool, and CapCut for captions.'},
+  {id:'rep', name:'Weekly sales and reports', hours:2, feas:4,
+   ai:'Pulls your numbers together and writes a plain-words weekly summary.',
+   person:'Decisions based on the numbers, and checking any total that looks odd.',
+   tools:'Google Sheets with an AI assistant, or an n8n flow that emails the summary.'},
+  {id:'boo', name:'Bookings and appointments', hours:3, feas:4,
+   ai:'Shares free slots, takes the booking and sends reminders.',
+   person:'Clashes, cancellations and VIP customers.',
+   tools:'A booking page (Google Calendar, Calendly or Cal.com) plus reminder automation.'},
+  {id:'inv', name:'Invoices and payment reminders', hours:2, feas:3,
+   ai:'Drafts invoices and polite payment reminders on schedule.',
+   person:'Every amount, every refund and anything involving money moving.',
+   tools:'Your billing app plus a reminder flow in n8n, Make or Zapier.'},
+  {id:'staff', name:'Answering the same staff questions', hours:2, feas:4,
+   ai:'Answers staff from your own process notes, so you stop repeating yourself.',
+   person:'Anything new, sensitive or about people.',
+   tools:'An AI assistant project loaded with your process notes.'},
+  {id:'res', name:'Market and competitor research', hours:2, feas:5,
+   ai:'Lists competitors, their prices and what customers complain about.',
+   person:'Checking two facts on the real websites before trusting the rest.',
+   tools:'An AI assistant with web search.'},
+  {id:'data', name:'Typing data from forms and documents', hours:3, feas:3,
+   ai:'Reads forms, bills or PDFs and fills your sheet.',
+   person:'Spot-checks on every batch, and personal data rules.',
+   tools:'An AI assistant that reads files, or an n8n flow into Google Sheets.'}
+];
+const CUSTOM = {ai:'Drafts the first version of this work so you only review and fix it.', person:'Anything involving money, promises to customers or personal data.', tools:'Start with an AI assistant. If it repeats every day, move it into an automation (n8n, Make or Zapier).'};
+const DEFAULT_PICK = ['enq','soc','rep'];
+const KEY = 'ai-opp-finder-v1';
+
+let state = load() || {tasks: DEFAULT_PICK.map(fromLib)};
+
+function fromLib(id){const t=LIB.find(x=>x.id===id);return {id:t.id,name:t.name,hours:t.hours,value:valueFromHours(t.hours),feas:t.feas,valueSet:false};}
+function valueFromHours(h){return h>=5?5:h>=3?4:h>=2?3:h>=1?2:1;}
+function info(t){return LIB.find(x=>x.id===t.id)||CUSTOM;}
+function score(t){return t.value*t.feas;}
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));return s&&Array.isArray(s.tasks)?s:null;}catch(e){return null;}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function fmtH(h){return (Math.round(h*2)/2).toString().replace(/\.0$/,'');}
+function ranked(){return state.tasks.map((t,i)=>({t,i,s:score(t)})).sort((a,b)=>b.s-a.s||b.t.hours-a.t.hours);}
+
+function renderChips(){
+  const el=document.getElementById('chips');
+  el.innerHTML=LIB.map(t=>{const on=state.tasks.some(x=>x.id===t.id);return `<button type="button" class="chip" id="chip-${t.id}" data-id="${t.id}" aria-pressed="${on}">${esc(t.name)}</button>`;}).join('');
+}
+function seg(kind,i,val){
+  return `<div class="seg" role="group" aria-label="${kind}">`+[1,2,3,4,5].map(n=>`<button type="button" id="${kind}-${i}-${n}" data-k="${kind}" data-i="${i}" data-n="${n}" aria-pressed="${n===val}">${n}</button>`).join('')+`</div>`;
+}
+function renderTasks(){
+  const el=document.getElementById('tasks');
+  if(!state.tasks.length){el.innerHTML='<p class="empty">Tap at least one task above, or add your own.</p>';return;}
+  el.innerHTML=state.tasks.map((t,i)=>`
+   <div class="task">
+     <div class="task-top"><span class="task-name">${esc(t.name)}</span><button type="button" class="x" data-rm="${i}" aria-label="Remove ${esc(t.name)}">×</button></div>
+     <div class="field"><span class="lbl">Hours a week</span>
+       <div class="stepper"><button type="button" data-h="${i}" data-d="-0.5" aria-label="Fewer hours">−</button><output id="h-${i}">${fmtH(t.hours)} h</output><button type="button" data-h="${i}" data-d="0.5" aria-label="More hours">+</button></div></div>
+     <div class="field"><span class="lbl">Value</span>${seg('value',i,t.value)}</div>
+     <div class="field"><span class="lbl">Feasibility</span>${seg('feas',i,t.feas)}</div>
+   </div>`).join('');
+}
+function renderResult(){
+  const r=ranked(), el=document.getElementById('result');
+  if(!r.length){el.innerHTML='<p class="empty">Your first AI task will show here.</p>';document.getElementById('rank').innerHTML='';document.getElementById('plot').innerHTML='';return;}
+  const top=r[0].t, inf=info(top), total=state.tasks.reduce((a,t)=>a+t.hours,0);
+  el.innerHTML=`
+    <span class="pill">Start here</span>
+    <p class="big">${esc(top.name)}</p>
+    <div class="facts">
+      <div class="fact"><b>${r[0].s}<small style="font-size:13px;color:var(--muted)"> /25</small></b><span>Score</span></div>
+      <div class="fact"><b>${fmtH(top.hours)} h</b><span>A week on this task</span></div>
+      <div class="fact"><b>${fmtH(total)} h</b><span>A week on all listed tasks</span></div>
+    </div>
+    <div class="how">
+      <div class="ai"><h3>What AI could do</h3><p>${esc(inf.ai)}</p></div>
+      <div class="person"><h3>What a person still checks</h3><p>${esc(inf.person)}</p></div>
+      <div class="tools"><h3>Where to start</h3><p>${esc(inf.tools)}</p></div>
+    </div>
+    ${r.length>1?`<p class="hint">Next in line: ${r.slice(1,3).map(x=>esc(x.t.name)).join(' · ')}</p>`:''}`;
+  document.getElementById('rank').innerHTML=r.map((x,k)=>`<li><span class="rk">${k+1}</span><div><div class="rname">${esc(x.t.name)}</div><div class="bar"><i style="width:${x.s/25*100}%"></i></div></div><span class="sc">${x.s}<small>/25</small></span></li>`).join('');
+  renderPlot(r);
+}
+function renderPlot(r){
+  const W=320,H=240,p=36,cs=getComputedStyle(document.documentElement);
+  const c=v=>cs.getPropertyValue(v).trim();
+  const x=f=>p+(f-1)/4*(W-p-12), y=v=>H-p-(v-1)/4*(H-p-12);
+  let g=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Tasks plotted by value and feasibility">`;
+  g+=`<rect x="${x(3)}" y="${y(5)-6}" width="${x(5)-x(3)+6}" height="${y(3)-y(5)+6}" fill="${c('--accent-soft')}" rx="6"/>`;
+  for(let n=1;n<=5;n++){g+=`<line x1="${x(n)}" y1="${y(1)}" x2="${x(n)}" y2="${y(5)}" stroke="${c('--line')}"/><line x1="${x(1)}" y1="${y(n)}" x2="${x(5)}" y2="${y(n)}" stroke="${c('--line')}"/>`;
+    g+=`<text x="${x(n)}" y="${H-p+16}" font-size="11" text-anchor="middle" fill="${c('--muted')}">${n}</text><text x="${p-10}" y="${y(n)+4}" font-size="11" text-anchor="end" fill="${c('--muted')}">${n}</text>`;}
+  g+=`<text x="${(x(1)+x(5))/2}" y="${H-4}" font-size="11" text-anchor="middle" fill="${c('--muted')}">Feasibility → easier</text>`;
+  g+=`<text x="10" y="${(y(1)+y(5))/2}" font-size="11" text-anchor="middle" fill="${c('--muted')}" transform="rotate(-90 10 ${(y(1)+y(5))/2})">Value → more</text>`;
+  const seen={};
+  r.slice().reverse().forEach((o,k)=>{const key=o.t.feas+'-'+o.t.value;const off=(seen[key]=(seen[key]||0)+1)-1;const cx=x(o.t.feas)+off*7,cy=y(o.t.value)-off*7;const first=o===r[0];
+    g+=`<circle cx="${cx}" cy="${cy}" r="${first?9:6}" fill="${first?c('--accent'):c('--muted')}" fill-opacity="${first?1:.6}" stroke="${c('--surface')}" stroke-width="2"/>`;
+    if(first)g+=`<text x="${cx}" y="${cy+4}" font-size="10" font-weight="700" text-anchor="middle" fill="${c('--surface')}">1</text>`;});
+  document.getElementById('plot').innerHTML=g+'</svg>';
+}
+function render(){renderChips();renderTasks();renderResult();save();}
+
+document.getElementById('chips').addEventListener('click',e=>{
+  const b=e.target.closest('.chip');if(!b)return;const id=b.dataset.id;const i=state.tasks.findIndex(t=>t.id===id);
+  if(i>=0)state.tasks.splice(i,1);else state.tasks.push(fromLib(id));render();});
+document.getElementById('tasks').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.rm!==undefined){state.tasks.splice(+b.dataset.rm,1);render();return;}
+  if(b.dataset.h!==undefined){const t=state.tasks[+b.dataset.h];t.hours=Math.max(0.5,Math.min(60,t.hours+ +b.dataset.d));if(!t.valueSet)t.value=valueFromHours(t.hours);render();return;}
+  if(b.dataset.k){const t=state.tasks[+b.dataset.i];if(b.dataset.k==='value'){t.value=+b.dataset.n;t.valueSet=true;}else t.feas=+b.dataset.n;render();}
+});
+function addCustom(){const inp=document.getElementById('custom');const name=inp.value.trim();if(!name)return;
+  state.tasks.push({id:'c'+Date.now(),name,hours:2,value:3,feas:3,valueSet:false});inp.value='';render();}
+document.getElementById('addBtn').addEventListener('click',addCustom);
+document.getElementById('custom').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addCustom();}});
+document.getElementById('resetBtn').addEventListener('click',()=>{state={tasks:[]};render();document.getElementById('toast').textContent='Cleared. Tap your tasks to start again.';});
+document.getElementById('copyBtn').addEventListener('click',async()=>{
+  const r=ranked();const toast=document.getElementById('toast');if(!r.length){toast.textContent='Add a task first.';return;}
+  const top=r[0].t,inf=info(top);
+  const txt=`My first AI task: ${top.name} (score ${r[0].s}/25, ${fmtH(top.hours)} h a week)\nWhat AI could do: ${inf.ai}\nWhat I still check: ${inf.person}\nWhere to start: ${inf.tools}\n\nRanked:\n`+r.map((x,k)=>`${k+1}. ${x.t.name} – ${x.s}/25`).join('\n')+`\n\nMade with Faizu Rahman's AI Opportunity Finder (@faizu.dev)`;
+  try{await navigator.clipboard.writeText(txt);toast.textContent='Copied. Paste it into your notes or send it to your team.';}catch(e){toast.textContent='Copy was blocked here. Take a screenshot of your answer instead.';}
+});
+render();
+</script>
+</body>
+</html>
